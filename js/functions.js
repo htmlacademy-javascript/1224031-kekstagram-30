@@ -22,11 +22,7 @@ const getNumberFromString = (string) => {
 
   numbers = numbers.replaceAll(' ', '');
 
-  if (numbers.length === 0) {
-    return NaN;
-  }
-
-  return Number(numbers);
+  return parseInt(numbers);
 };
 
 //Вызов функции чтобы линтер не ругался
