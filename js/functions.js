@@ -22,7 +22,7 @@ const getNumberFromString = (string) => {
 
   numbers = numbers.replaceAll(' ', '');
 
-  return parseInt(numbers);
+  return parseInt(numbers, 10);
 };
 
 //Вызов функции чтобы линтер не ругался
