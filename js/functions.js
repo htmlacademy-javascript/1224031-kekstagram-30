@@ -26,7 +26,8 @@ const getNumberFromString = (string) => {
     return NaN;
   }
 
-  return numbers;
+  return Number(numbers);
 };
+
 //Вызов функции чтобы линтер не ругался
 getNumberFromString('2023 год');
