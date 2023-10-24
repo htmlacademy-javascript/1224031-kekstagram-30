@@ -27,3 +27,19 @@ const getNumberFromString = (string) => {
 
 //Вызов функции чтобы линтер не ругался
 getNumberFromString('2023 год');
+
+//Решение задачи "Делу время"
+const timeInMinutes = (array) => (parseInt(array[0], 10) * 60) + (parseInt(array[1], 10));
+
+const isMeetingTimeCorrect = (workDayStart, workDayEnd, meetingStart, meetingTime) => {
+  const workDayStartInMinutes = timeInMinutes(workDayStart.split(':'));
+  const workDayEndInMinutes = timeInMinutes(workDayEnd.split(':'));
+  const meetingStartInMinutes = timeInMinutes(meetingStart.split(':'));
+  const meetingEndInMinutes = meetingStartInMinutes + meetingTime;
+  return workDayStartInMinutes <= meetingStartInMinutes &&
+    workDayEndInMinutes > meetingStartInMinutes &&
+    workDayEndInMinutes >= meetingEndInMinutes;
+};
+
+//Вызов функции, чтобы линтер не ругался
+isMeetingTimeCorrect('08:00', '17:30', '14:00', 90);
