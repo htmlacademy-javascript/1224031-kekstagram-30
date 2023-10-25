@@ -6,7 +6,7 @@ const palindromeCheck = (string) => {
   string = string.toLowerCase().replaceAll(' ', '');
   return Array.from(string).toString() === Array.from(string).reverse().toString();
 };
-//Вызов функции чтобы линтер не ругался
+//Вызов функции чтобы линтер не ругался.
 palindromeCheck('топот');
 
 const getNumberFromString = (string) => {
@@ -25,10 +25,10 @@ const getNumberFromString = (string) => {
   return parseInt(numbers, 10);
 };
 
-//Вызов функции чтобы линтер не ругался
+//Вызов функции чтобы линтер не ругался.
 getNumberFromString('2023 год');
 
-//Решение задачи "Делу время"
+//Решение задачи "Делу время".
 const timeInMinutes = (array) => (parseInt(array[0], 10) * 60) + (parseInt(array[1], 10));
 
 const isMeetingTimeCorrect = (workDayStart, workDayEnd, meetingStart, meetingTime) => {
@@ -41,5 +41,5 @@ const isMeetingTimeCorrect = (workDayStart, workDayEnd, meetingStart, meetingTim
     workDayEndInMinutes >= meetingEndInMinutes;
 };
 
-//Вызов функции, чтобы линтер не ругался
+//Вызов функции, чтобы линтер не ругался.
 isMeetingTimeCorrect('08:00', '17:30', '14:00', 90);
