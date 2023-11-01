@@ -1,3 +1,2 @@
-import {getPhotoArray} from './data.js';
-
-getPhotoArray();
+import {getPictures} from './getPictures.js';
+getPictures();
