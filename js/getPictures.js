@@ -19,7 +19,5 @@ const getPictures = () => {
 
   return picturesContainer.append(picturesFragment);
 };
-//Убираем заглушку с заголовка списка фотографий
-picturesContainer.querySelector('.pictures__title').classList.remove('visually-hidden');
 
 export {getPictures};
