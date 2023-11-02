@@ -8,10 +8,12 @@ const picturesArrayObj = getPhotoArray();
 const picturesFragment = document.createDocumentFragment();
 
 const getPictures = () => {
-  picturesArrayObj.forEach(({url, description, likes, comments}) => {
+  picturesArrayObj.forEach(({id, url, description, likes, comments}) => {
     const picture = pictureTemplate.cloneNode(true);
-    picture.querySelector('.picture__img').src = url;
-    picture.querySelector('.picture__img').alt = description;
+    const photo = picture.querySelector('.picture__img');
+    photo.dataset.id = id;
+    photo.src = url;
+    photo.alt = description;
     picture.querySelector('.picture__likes').textContent = likes;
     picture.querySelector('.picture__comments').textContent = comments.length;
     picturesFragment.append(picture);
@@ -20,4 +22,4 @@ const getPictures = () => {
   return picturesContainer.append(picturesFragment);
 };
 
-export {getPictures};
+export {getPictures, picturesContainer, picturesArrayObj};
