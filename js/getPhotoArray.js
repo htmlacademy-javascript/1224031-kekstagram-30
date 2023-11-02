@@ -17,7 +17,7 @@ const generateImageId = createRandomIdFromRangeGenerator(1, PHOTOS_COUNT);
 const getCommentObject = () => ({
   id: generateCommentId(),
   avatar: `img/avatar-${ getRandomInteger(1, AVATARS_COUNT) }.svg`,
-  message: MESSAGES[getRandomInteger(0, MESSAGES.length)],
+  message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
   name: NAMES[getRandomInteger(0, NAMES.length)]
 });
 
