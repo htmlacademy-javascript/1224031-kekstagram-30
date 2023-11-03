@@ -17,7 +17,7 @@ const bigPictureCommentsTemplate = document.querySelector('#commentary')
   .querySelector('.social__comment');
 const commentsFragment = document.createDocumentFragment();
 
-const bigPictureCommentsCounter = bigPicturePopup.querySelector('.social__comment-count');
+// const bigPictureCommentsCounter = bigPicturePopup.querySelector('.social__comment-count');
 const bigPictureCommentsLoader = bigPicturePopup.querySelector('.comments-loader');
 
 const closeBigPicture = () => {
@@ -28,8 +28,6 @@ const closeBigPicture = () => {
 const openBigPicture = () => {
   bigPicturePopup.classList.remove('hidden');
   bigPictureCloseButton.addEventListener('click', closeBigPicture);
-  bigPictureCommentsCounter.classList.add('hidden');
-  bigPictureCommentsLoader.classList.add('hidden');
   document.querySelector('body').classList.add('modal-open');
 };
 
@@ -39,6 +37,7 @@ const onEscCloseBigPicture = (evt) => {
     picturesContainer.removeEventListener('keydown', onEscCloseBigPicture);
   }
 };
+
 const getBigPictureComments = (array) => {
   bigPictureComments.innerHTML = '';
   array.forEach((value) => {
@@ -59,6 +58,15 @@ const getBigPicture = (obj) => {
   bigPictureDescription.textContent = obj.description;
 };
 
+
+const getMoreComments = () => {
+  if (bigPictureComments.children.length <= 5) {
+    bigPictureCommentsLoader.classList.add('hidden');
+  } else {
+    bigPictureCommentsLoader.classList.remove('hidden');
+  }
+};
+
 picturesContainer.addEventListener('click', (evt) => {
   picturesArrayObj.forEach((value) => {
     if (value.id === Number(evt.target.dataset.id)) {
@@ -66,6 +74,7 @@ picturesContainer.addEventListener('click', (evt) => {
       getBigPicture(value);
       getBigPictureComments(value.comments);
       picturesContainer.addEventListener('keydown', onEscCloseBigPicture);
+      getMoreComments();
     }
   });
 });
