@@ -1,2 +1,2 @@
-import {getPictures} from './getPictures.js';
-getPictures();
+import './getBigPicture';
+
