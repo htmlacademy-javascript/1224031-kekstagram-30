@@ -18,7 +18,6 @@ const bigPictureCommentsTemplate = document.querySelector('#commentary')
   .querySelector('.social__comment');
 const commentsFragment = document.createDocumentFragment();
 
-//const bigPictureCommentsCounter = bigPicturePopup.querySelector('.social__comment-count');
 const bigPictureCommentsLoader = bigPicturePopup.querySelector('.comments-loader');
 
 const closeBigPicture = () => {
@@ -40,9 +39,10 @@ const onEscCloseBigPicture = (evt) => {
   }
 };
 
-const getBigPictureComments = (array) => {
+const getBigPictureComments = (array, count) => {
   bigPictureComments.innerHTML = '';
-  array.forEach((value) => {
+  const newArr = array.slice(0, count);
+  newArr.forEach((value) => {
     const comment = bigPictureCommentsTemplate.cloneNode(true);
     const avatar = comment.querySelector('.social__picture');
     const commentText = comment.querySelector('.social__text');
@@ -51,17 +51,17 @@ const getBigPictureComments = (array) => {
     commentText.textContent = value.message;
     commentsFragment.append(comment);
   });
-  return bigPictureComments.append(commentsFragment);
-};
-const getMoreComments = (obj) => {
-  if (obj.comments.length <= 5) {
+  if (array.length <= 5) {
     bigPictureCommentsLoader.classList.add('hidden');
-    bigPictureCommentsCount.textContent = obj.comments.length;
+    bigPictureCommentsCount.textContent = newArr.length;
+  } else if (count >= array.length) {
+    bigPictureCommentsLoader.classList.add('hidden');
+    bigPictureCommentsCount.textContent = newArr.length;
   } else {
     bigPictureCommentsLoader.classList.remove('hidden');
-    obj.comments = obj.comments.slice(0,5);
-    bigPictureCommentsCount.textContent = obj.comments.length;
+    bigPictureCommentsCount.textContent = String(count);
   }
+  return bigPictureComments.append(commentsFragment);
 };
 
 const getBigPicture = (obj) => {
@@ -69,17 +69,21 @@ const getBigPicture = (obj) => {
   bigPictureLikesCount.textContent = String(obj.likes);
   bigPictureCommentsTotalCount.textContent = String(obj.comments.length);
   bigPictureDescription.textContent = obj.description;
-  getMoreComments(obj);
 };
 
-
 picturesContainer.addEventListener('click', (evt) => {
+  let count = 5;
   picturesArrayObj.forEach((value) => {
     if (value.id === Number(evt.target.dataset.id)) {
       openBigPicture();
       getBigPicture(value);
-      getBigPictureComments(value.comments);
+      getBigPictureComments(value.comments, count);
       picturesContainer.addEventListener('keydown', onEscCloseBigPicture);
+      const getMoreComments = () => {
+        count += 5;
+        getBigPictureComments(value.comments, count);
+      };
+      bigPictureCommentsLoader.addEventListener('click', getMoreComments);
     }
   });
 });
