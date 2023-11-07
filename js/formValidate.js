@@ -22,3 +22,19 @@ imgUploadForm.addEventListener('keydown', (evt) => {
     imgUploadInput.value = '';
   }
 });
+
+const pristine = new Pristine(imgUploadForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorClass: 'img-upload__field-wrapper--error',
+});
+const validateComment = () => true;
+
+pristine.addValidator(
+  imgUploadForm.querySelector('.text__description'),
+  validateComment,
+  'Не более 140 символов'
+);
+imgUploadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  pristine.validate();
+});
