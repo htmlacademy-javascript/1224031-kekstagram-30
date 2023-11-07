@@ -13,10 +13,12 @@ imgUploadInput.addEventListener('change', () => {
 uploadCloseButton.addEventListener('click', () => {
   imgUploadInterface.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
+  imgUploadInput.value = '';
 });
 imgUploadForm.addEventListener('keydown', (evt) => {
   if(isEscapeKey(evt)) {
     imgUploadInterface.classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
+    imgUploadInput.value = '';
   }
 });
