@@ -32,13 +32,15 @@ const openModal = () => {
 
 imgUploadInput.addEventListener('change', openModal);
 document.addEventListener('keydown', (evt) => {
-  if (photoCommentInputField === document.activeElement || photoHashtagsInputField === document.activeElement) {
-    evt.stopPropagation();
-  }
   if(isEscapeKey(evt)) {
     closeModal();
   }
 });
+if (photoCommentInputField === document.activeElement || photoHashtagsInputField === document.activeElement) {
+  document.addEventListener('keydown', (evt) => {
+    evt.stopPropagation();
+  });
+}
 
 //Валидация описания фотографии
 const validateComment = (value) => value.length <= 140;
