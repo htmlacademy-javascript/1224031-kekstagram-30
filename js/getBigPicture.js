@@ -23,7 +23,7 @@ const onEscCloseBigPicture = (evt) => {
   if (isEscapeKey(evt)) {
     bigPicturePopup.classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
-    picturesContainer.removeEventListener('keydown', onEscCloseBigPicture);
+    document.removeEventListener('keydown', onEscCloseBigPicture);
   }
 };
 
@@ -37,7 +37,7 @@ const openBigPicture = () => {
   bigPicturePopup.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   bigPictureCloseButton.addEventListener('click', closeBigPicture);
-  picturesContainer.addEventListener('keydown', onEscCloseBigPicture);
+  document.addEventListener('keydown', onEscCloseBigPicture);
 };
 
 const getBigPictureComments = (array, count) => {
