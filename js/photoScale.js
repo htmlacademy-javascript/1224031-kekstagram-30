@@ -3,24 +3,17 @@ const scaleBigger = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
 const photo = document.querySelector('.img-upload__preview img');
 
-const getPictureSmaller = () => {
-  scaleValue.value = `${parseInt(scaleValue.value, 10) - 25}%`;
-  photo.style.transform = scaleValue.value;
-  if(parseInt(scaleValue.value, 10) === 25) {
-    scaleSmaller.removeEventListener('click', getPictureSmaller);
-    // eslint-disable-next-line no-use-before-define
-    scaleBigger.addEventListener('click', getPictureBigger);
+
+scaleSmaller.addEventListener('click', () => {
+  if (parseInt(scaleValue.value, 10) - 25 >= 25) {
+    scaleValue.value = `${parseInt(scaleValue.value, 10) - 25}%`;
+    photo.style.transform = `scale(${scaleValue.value})`;
   }
-};
-const getPictureBigger = () => {
-  scaleValue.value = `${parseInt(scaleValue.value, 10) + 25}%`;
-  photo.style.transform = scaleValue.value;
-  if(parseInt(scaleValue.value, 10) === 100) {
-    scaleSmaller.addEventListener('click', getPictureSmaller);
-    scaleBigger.removeEventListener('click', getPictureBigger);
+});
+
+scaleBigger.addEventListener('click', () => {
+  if(parseInt(scaleValue.value, 10) + 25 <= 100) {
+    scaleValue.value = `${parseInt(scaleValue.value, 10) + 25}%`;
+    photo.style.transform = `scale(${scaleValue.value})`;
   }
-};
-
-scaleSmaller.addEventListener('click', getPictureSmaller);
-
-
+});
