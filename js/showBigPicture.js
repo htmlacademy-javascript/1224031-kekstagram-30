@@ -1,7 +1,5 @@
-import {getPictures, picturesContainer, picturesArrayObj} from './getPictures.js';
-import {isEscapeKey} from './utils.js';
-
-getPictures();
+import { picturesContainer } from './getPictures.js';
+import { isEscapeKey } from './utils.js';
 
 const bigPicturePopup = document.querySelector('.big-picture');
 const bigPictureCloseButton = document.querySelector('.big-picture__cancel');
@@ -67,23 +65,27 @@ const getBigPictureComments = (array, count) => {
 
 const getBigPicture = (obj) => {
   bigPictureImage.src = obj.url;
-  bigPictureLikesCount.textContent = String(obj.likes);
+  bigPictureLikesCount.textContent = obj.likes;
   bigPictureCommentsTotalCount.textContent = String(obj.comments.length);
   bigPictureDescription.textContent = obj.description;
 };
-
-picturesContainer.addEventListener('click', (evt) => {
-  let count = 5;
-  picturesArrayObj.forEach((value) => {
-    if (value.id === Number(evt.target.dataset.id)) {
-      openBigPicture();
-      getBigPicture(value);
-      getBigPictureComments(value.comments, count);
-      const getMoreComments = () => {
-        count += 5;
+const showBigPicture = (data) => {
+  picturesContainer.addEventListener('click', (evt) => {
+    let count = 5;
+    data.forEach((value) => {
+      if (value.id === Number(evt.target.dataset.id)) {
+        openBigPicture();
+        getBigPicture(value);
         getBigPictureComments(value.comments, count);
-      };
-      bigPictureCommentsLoader.addEventListener('click', getMoreComments);
-    }
+        const getMoreComments = () => {
+          count += 5;
+          getBigPictureComments(value.comments, count);
+        };
+        bigPictureCommentsLoader.addEventListener('click', getMoreComments);
+      }
+    });
   });
-});
+};
+
+export { showBigPicture };
+
