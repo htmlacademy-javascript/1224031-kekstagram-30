@@ -22,5 +22,13 @@ const getServerData = (onSuccess) => {
     });
 };
 
-
-export {getServerData};
+const sendServerData = (formData) => {
+  fetch(
+    'https://30.javascript.pages.academy/kekstagram',
+    {
+      method: 'POST',
+      body: formData,
+    },
+  );
+};
+export {getServerData, sendServerData};
