@@ -1,5 +1,4 @@
 import { picturesContainer } from './getPictures.js';
-import { isEscapeKey } from './utils.js';
 
 const bigPicturePopup = document.querySelector('.big-picture');
 const bigPictureCloseButton = document.querySelector('.big-picture__cancel');
@@ -17,13 +16,6 @@ const bigPictureCommentsTemplate = document.querySelector('#commentary')
 const commentsFragment = document.createDocumentFragment();
 
 const bigPictureCommentsLoader = bigPicturePopup.querySelector('.comments-loader');
-const onEscCloseBigPicture = (evt) => {
-  if (isEscapeKey(evt)) {
-    bigPicturePopup.classList.add('hidden');
-    document.querySelector('body').classList.remove('modal-open');
-    document.removeEventListener('keydown', onEscCloseBigPicture);
-  }
-};
 
 const closeBigPicture = () => {
   bigPicturePopup.classList.add('hidden');
@@ -35,7 +27,6 @@ const openBigPicture = () => {
   bigPicturePopup.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   bigPictureCloseButton.addEventListener('click', closeBigPicture);
-  document.querySelector('.img-upload__overlay').addEventListener('keydown', onEscCloseBigPicture);
 };
 
 const getBigPictureComments = (array, count) => {

@@ -38,11 +38,13 @@ document.addEventListener('keydown', (evt) => {
     closeModal();
   }
 });
-if (photoCommentInputField === document.activeElement || photoHashtagsInputField === document.activeElement) {
-  document.addEventListener('keydown', (evt) => {
-    evt.stopPropagation();
-  });
-}
+
+photoCommentInputField.addEventListener('keydown', (evt) => {
+  evt.stopPropagation();
+});
+photoHashtagsInputField.addEventListener('keydown', (evt) => {
+  evt.stopPropagation();
+});
 
 //Валидация описания фотографии
 const validateComment = (value) => value.length <= 140;
