@@ -1,7 +1,6 @@
 import {isEscapeKey} from './utils.js';
 import {sendServerData} from './server.js';
-import {resetScale} from './photoScale.js';
-import {resetEffects} from './sliderEffects.js';
+
 
 const hashtagRegular = /^#[a-zа-яё0-9]{1,19}$/i;
 
@@ -11,11 +10,6 @@ const imgUploadInterface = document.querySelector('.img-upload__overlay');
 const uploadCloseButton = document.querySelector('.img-upload__cancel');
 const photoCommentInputField = imgUploadForm.querySelector('.text__description');
 const photoHashtagsInputField = imgUploadForm.querySelector('.text__hashtags');
-
-const resetTextFields = () => {
-  photoCommentInputField.value = '';
-  photoHashtagsInputField.value = '';
-};
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -88,9 +82,7 @@ imgUploadForm.addEventListener('submit', (evt) => {
   if(pristine.validate()) {
     const formData = new FormData(evt.target);
     sendServerData(formData);
-    resetScale();
-    resetEffects();
-    resetTextFields();
-    imgUploadInput.value = '';
   }
 });
+
+export {closeModal};

@@ -35,7 +35,7 @@ const openBigPicture = () => {
   bigPicturePopup.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   bigPictureCloseButton.addEventListener('click', closeBigPicture);
-  document.addEventListener('keydown', onEscCloseBigPicture);
+  document.querySelector('.img-upload__overlay').addEventListener('keydown', onEscCloseBigPicture);
 };
 
 const getBigPictureComments = (array, count) => {
