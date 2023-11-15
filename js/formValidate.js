@@ -34,7 +34,7 @@ const openModal = () => {
 
 imgUploadInput.addEventListener('change', openModal);
 document.addEventListener('keydown', (evt) => {
-  if(isEscapeKey(evt)) {
+  if(isEscapeKey(evt) && !document.querySelector('.error')) {
     closeModal();
   }
 });
