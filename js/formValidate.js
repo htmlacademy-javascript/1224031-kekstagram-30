@@ -1,4 +1,6 @@
 import {isEscapeKey} from './utils.js';
+import {sendServerData} from './server.js';
+
 
 const hashtagRegular = /^#[a-zа-яё0-9]{1,19}$/i;
 
@@ -32,15 +34,17 @@ const openModal = () => {
 
 imgUploadInput.addEventListener('change', openModal);
 document.addEventListener('keydown', (evt) => {
-  if(isEscapeKey(evt)) {
+  if(isEscapeKey(evt) && !document.querySelector('.error')) {
     closeModal();
   }
 });
-if (photoCommentInputField === document.activeElement || photoHashtagsInputField === document.activeElement) {
-  document.addEventListener('keydown', (evt) => {
-    evt.stopPropagation();
-  });
-}
+
+photoCommentInputField.addEventListener('keydown', (evt) => {
+  evt.stopPropagation();
+});
+photoHashtagsInputField.addEventListener('keydown', (evt) => {
+  evt.stopPropagation();
+});
 
 //Валидация описания фотографии
 const validateComment = (value) => value.length <= 140;
@@ -76,7 +80,11 @@ pristine.addValidator(
   'Хэш-теги не должны повторяться'
 );
 imgUploadForm.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
+  evt.preventDefault();
+  if(pristine.validate()) {
+    const formData = new FormData(evt.target);
+    sendServerData(formData);
   }
 });
+
+export {closeModal};
