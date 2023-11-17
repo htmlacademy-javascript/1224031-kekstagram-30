@@ -1,5 +1,6 @@
 import { getServerData } from './server';
 import { getPictures } from './get-pictures';
+import {getRandomInteger} from './utils';
 
 const filtersContainer = document.querySelector('.img-filters');
 const defaultFilterButton = document.querySelector('#filter-default');
@@ -13,18 +14,27 @@ defaultFilterButton.addEventListener('click', () => {
   getServerData(getPictures);
 
 });
-
 randomFilterButton.addEventListener('click', () => {
   let newArr = [];
+  const previousValues = [];
   for(let i = 0; i < document.querySelectorAll('.picture').length; i++){
-    const index = Math.floor(Math.random() * (document.querySelectorAll('.picture').length - 1)); // у тебя есть функция создающая уникальное значечене ей и воспользуйся
+    let index = getRandomInteger(0,24);
+    while (previousValues.includes(index)) {
+      index = getRandomInteger(0, 24);
+    }
+    previousValues.push(index);
     newArr.push(document.querySelectorAll('.picture')[index]);
   }
   newArr = newArr.slice(0,10);
-  document.querySelectorAll('.picture').forEach((item) => item.remove());
-  newArr.forEach((item) => {
-    document.querySelector('.pictures').append(item);
-  });
+  if(document.querySelectorAll('.picture').length !== 10){
+    document.querySelectorAll('.picture').forEach((item) => item.remove());
+    newArr.forEach((item) => {
+      document.querySelector('.pictures').append(item);
+    });
+  } else {
+    document.querySelectorAll('.picture').forEach((item) => item.remove());
+    getServerData(getPictures);
+  }
 });
 
 

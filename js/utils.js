@@ -16,12 +16,12 @@ function debounce (callback, timeoutDelay = 500) {
     // пока действие совершается чаще, чем переданная задержка timeoutDelay
   };
 }
-// const getRandomInteger = (a, b) => {
-//   const lower = Math.ceil(Math.min(a, b));
-//   const upper = Math.floor(Math.max(a, b));
-//   const result = Math.random() * (upper - lower + 1) + lower;
-//   return Math.floor(result);
-// };
+const getRandomInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
 // function randomNumGenerator (min, max) {
 //   const previousValues = [];
 //
@@ -38,4 +38,5 @@ function debounce (callback, timeoutDelay = 500) {
 //   };
 // }
 
-export {isEscapeKey,debounce};
+
+export {isEscapeKey,debounce,getRandomInteger};
