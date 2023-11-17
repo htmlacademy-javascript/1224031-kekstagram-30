@@ -1,7 +1,8 @@
-import {isEscapeKey} from './utils.js';
-import {closeModal} from './formValidate.js';
-import {resetScale} from './photoScale.js';
-import {resetEffects} from './sliderEffects.js';
+import {isEscapeKey} from './utils';
+import {closeModal} from './form-validate';
+import {resetScale} from './photo-scale';
+import {resetEffects} from './slider-effects';
+import {initFilter} from './filters';
 
 const downloadErrorTemplateContent = document.querySelector('#data-error').content.querySelector('.data-error');
 
@@ -62,6 +63,7 @@ const getServerData = (onSuccess) => {
     })
     .then((pictures) => {
       onSuccess(pictures);
+      initFilter();
     })
     .catch(() => {
       getDownloadErrorMessage();

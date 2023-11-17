@@ -1,4 +1,5 @@
-import { picturesContainer } from './getPictures.js';
+import { picturesContainer } from './get-pictures';
+import {isEscapeKey} from './utils';
 
 const bigPicturePopup = document.querySelector('.big-picture');
 const bigPictureCloseButton = document.querySelector('.big-picture__cancel');
@@ -28,6 +29,12 @@ const openBigPicture = () => {
   document.querySelector('body').classList.add('modal-open');
   bigPictureCloseButton.addEventListener('click', closeBigPicture);
 };
+
+document.addEventListener('keydown', (evt) => {
+  if(isEscapeKey(evt)) {
+    closeBigPicture();
+  }
+});
 
 const getBigPictureComments = (array, count) => {
   bigPictureComments.innerHTML = '';
