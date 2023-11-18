@@ -22,21 +22,21 @@ const getRandomInteger = (a, b) => {
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
-// function randomNumGenerator (min, max) {
-//   const previousValues = [];
-//
-//   return function () {
-//     let currentValue = getRandomInteger(min, max);
-//     if (previousValues.length >= (max - min + 1)) {
-//       return null;
-//     }
-//     while (previousValues.includes(currentValue)) {
-//       currentValue = getRandomInteger(min, max);
-//     }
-//     previousValues.push(currentValue);
-//     return currentValue;
-//   };
-// }
+function randomNumGenerator (min, max) {
+  const previousValues = [];
+
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+}
 
 
-export {isEscapeKey,debounce,getRandomInteger};
+export {isEscapeKey,debounce,randomNumGenerator};
