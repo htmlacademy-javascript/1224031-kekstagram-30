@@ -37,11 +37,7 @@ const randomSorting = (evt, pictures, removePicturesCb) => {
 const discussedSorting = (evt, pictures, removePicturesCb) => {
   activeButtonToggle(evt);
   const newArr = pictures.slice();
-  newArr.sort((a,b) => {
-    if(a.comments.length > b.comments.length) {
-      return -1;
-    }
-  });
+  newArr.sort((a,b) => b.comments.length - a.comments.length);
   removePicturesCb();
   getPictures(newArr);
 };
