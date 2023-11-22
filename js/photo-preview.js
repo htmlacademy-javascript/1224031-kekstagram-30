@@ -13,7 +13,7 @@ fileChooser.addEventListener('change', () => {
   if (matches) {
     preview.src = URL.createObjectURL(file);
     effectPreviews.forEach((item) => {
-      item.style.backgroundImage = `${URL.createObjectURL(file)}`;
+      item.style.backgroundImage = `url(${preview.src})`;
     });
   }
 });
