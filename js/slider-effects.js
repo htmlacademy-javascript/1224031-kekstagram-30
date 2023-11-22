@@ -69,5 +69,7 @@ const resetEffects = () => {
   photo.style.filter = '';
   noneEffectButton.checked = true;
 };
-
+sliderField.noUiSlider.on('update',() => {
+  effectValue.setAttribute('value', String(sliderField.noUiSlider.get(true)));
+});
 export {resetEffects};

@@ -16,7 +16,6 @@ const getPictures = (data) => {
     picture.querySelector('.picture__comments').textContent = comments.length;
     picturesFragment.append(picture);
   });
-
   return picturesContainer.append(picturesFragment);
 };
 

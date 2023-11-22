@@ -1,9 +1,8 @@
-import { getServerData } from './server.js';
-import { getPictures } from './getPictures.js';
-import { showBigPicture } from './showBigPicture.js';
-import './formValidate.js';
-import './photoScale.js';
-import './sliderEffects.js';
+import { getServerData } from './server';
+import { getPictures } from './get-pictures';
+import './form-validate';
+import './photo-scale';
+import './slider-effects';
+import './sort';
 
 getServerData(getPictures);
-getServerData(showBigPicture);
