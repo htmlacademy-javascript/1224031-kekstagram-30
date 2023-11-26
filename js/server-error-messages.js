@@ -1,5 +1,7 @@
 import {isEscapeKey} from './utils';
 
+const ERROR_TIMEOUT = 5000;
+
 const downloadErrorTemplateContent = document.querySelector('#data-error').content.querySelector('.data-error');
 const uploadErrorTemplateContent = document.querySelector('#error').content.querySelector('.error');
 const uploadErrorCloseButton = uploadErrorTemplateContent.querySelector('.error__button');
@@ -12,7 +14,7 @@ const removeDownloadErrorMessage = () => downloadErrorTemplateContent.remove();
 const getDownloadErrorMessage = () => {
   downloadErrorTemplateContent.cloneNode(true);
   document.body.append(downloadErrorTemplateContent);
-  setTimeout(removeDownloadErrorMessage, 5000);
+  setTimeout(removeDownloadErrorMessage, ERROR_TIMEOUT);
 };
 const removeSuccessMessage = () => {
   successTemplateContent.remove();
