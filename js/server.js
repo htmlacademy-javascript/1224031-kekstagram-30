@@ -6,7 +6,7 @@ import {enableSorting} from './sort';
 import {getDownloadErrorMessage, getSuccessMessage, getUploadErrorMessage} from './server-error-messages';
 
 const GET_SERVER_URL = 'https://30.javascript.pages.academy/kekstagram/data';
-const SEND_SERVER_URL = 'https://30.javascript.pages.academy/kekstagra/';
+const SEND_SERVER_URL = 'https://30.javascript.pages.academy/kekstagram/';
 
 const getServerData = (getPictures) => {
   fetch(GET_SERVER_URL)
