@@ -38,10 +38,10 @@ document.addEventListener('keydown', (evt) => {
   }
 });
 
-const getBigPictureComments = (array, count) => {
+const getBigPictureComments = (comments, commentsCount) => {
   bigPictureComments.innerHTML = '';
-  const newArr = array.slice(0, count);
-  newArr.forEach((value) => {
+  const slicedComments = comments.slice(0, commentsCount);
+  slicedComments.forEach((value) => {
     const comment = bigPictureCommentsTemplate.cloneNode(true);
     const avatar = comment.querySelector('.social__picture');
     const commentText = comment.querySelector('.social__text');
@@ -50,24 +50,24 @@ const getBigPictureComments = (array, count) => {
     commentText.textContent = value.message;
     commentsFragment.append(comment);
   });
-  if (array.length <= COMMENTS_SHOWN) {
+  if (comments.length <= COMMENTS_SHOWN) {
     bigPictureCommentsLoader.classList.add('hidden');
-    bigPictureCommentsCount.textContent = newArr.length;
-  } else if (count >= array.length) {
+    bigPictureCommentsCount.textContent = slicedComments.length;
+  } else if (commentsCount >= comments.length) {
     bigPictureCommentsLoader.classList.add('hidden');
-    bigPictureCommentsCount.textContent = newArr.length;
+    bigPictureCommentsCount.textContent = slicedComments.length;
   } else {
     bigPictureCommentsLoader.classList.remove('hidden');
-    bigPictureCommentsCount.textContent = String(count);
+    bigPictureCommentsCount.textContent = String(commentsCount);
   }
   return bigPictureComments.append(commentsFragment);
 };
 
-const getBigPicture = (obj) => {
-  bigPictureImage.src = obj.url;
-  bigPictureLikesCount.textContent = obj.likes;
-  bigPictureCommentsTotalCount.textContent = String(obj.comments.length);
-  bigPictureDescription.textContent = obj.description;
+const getBigPicture = (dataObject) => {
+  bigPictureImage.src = dataObject.url;
+  bigPictureLikesCount.textContent = dataObject.likes;
+  bigPictureCommentsTotalCount.textContent = String(dataObject.comments.length);
+  bigPictureDescription.textContent = dataObject.description;
 };
 const showBigPicture = (data) => {
   picturesContainer.addEventListener('click', (evt) => {

@@ -2,11 +2,14 @@ import {showBigPicture} from './show-big-picture';
 import {closeModal} from './form-validate';
 import {resetScale} from './photo-scale';
 import {resetEffects} from './slider-effects';
-import {initSort} from './sort';
+import {enableSorting} from './sort';
 import {getDownloadErrorMessage, getSuccessMessage, getUploadErrorMessage} from './server-error-messages';
 
+const GET_SERVER_URL = 'https://30.javascript.pages.academy/kekstagram/data';
+const SEND_SERVER_URL = 'https://30.javascript.pages.academy/kekstagram/';
+
 const getServerData = (getPictures) => {
-  fetch('https://30.javascript.pages.academy/kekstagram/data')
+  fetch(GET_SERVER_URL)
     .then((response) => {
       if(!response.ok) {
         getDownloadErrorMessage();
@@ -16,7 +19,7 @@ const getServerData = (getPictures) => {
     .then((pictures) => {
       getPictures(pictures);
       showBigPicture(pictures);
-      initSort(pictures);
+      enableSorting(pictures);
     })
     .catch(() => {
       getDownloadErrorMessage();
@@ -24,8 +27,8 @@ const getServerData = (getPictures) => {
 };
 
 const sendServerData = (formData) => {
-  fetch(
-    'https://30.javascript.pages.academy/kekstagram/',
+  fetch(SEND_SERVER_URL
+    ,
     {
       method: 'POST',
       body: formData,

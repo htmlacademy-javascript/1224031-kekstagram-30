@@ -10,7 +10,7 @@ const defaultSortButton = filtersContainer.querySelector('#filter-default');
 const randomSortButton = filtersContainer.querySelector('#filter-random');
 const discussedSortButton = filtersContainer.querySelector('#filter-discussed');
 
-const activeButtonToggle = (evt) => {
+const toggleActiveButton = (evt) => {
   if (evt.target.classList.contains('img-filters__button--active')) {
     return;
   }
@@ -18,18 +18,18 @@ const activeButtonToggle = (evt) => {
   evt.target.classList.add('img-filters__button--active');
 };
 
-const sortHandler = (evt, removePicturesCb, pictures) => {
+const sortHandler = (evt, removePicturesFunction, pictures) => {
 
   //Сортировка по умолчанию
   if(evt.target === defaultSortButton) {
-    activeButtonToggle(evt);
-    removePicturesCb();
+    toggleActiveButton(evt);
+    removePicturesFunction();
     getPictures(pictures);
   }
 
   //10 рандомных картинок
   if(evt.target === randomSortButton) {
-    activeButtonToggle(evt);
+    toggleActiveButton(evt);
     let randomPics = [];
     const randomNum = randomNumGenerator(0, pictures.length - 1);
     for (let i = 0; i < pictures.length; i++) {
@@ -37,22 +37,22 @@ const sortHandler = (evt, removePicturesCb, pictures) => {
       randomPics.push(pictures[index]);
     }
     randomPics = randomPics.slice(0, MAX_RANDOM_PICS);
-    removePicturesCb();
+    removePicturesFunction();
     getPictures(randomPics);
   }
 
   //Сортировка по количеству комментариев
   if(evt.target === discussedSortButton) {
-    activeButtonToggle(evt);
+    toggleActiveButton(evt);
     const sortedPics = pictures.slice();
-    sortedPics.sort((a,b) => b.comments.length - a.comments.length);
-    removePicturesCb();
+    sortedPics.sort((currentPicture,nextPicture) => nextPicture.comments.length - currentPicture.comments.length);
+    removePicturesFunction();
     getPictures(sortedPics);
   }
 };
 
 const debouncedSort = debounce(sortHandler);
-const initSort = (data) => {
+const enableSorting = (data) => {
   const removePicturesList = () => document.querySelectorAll('.picture')
     .forEach((item) => item.remove());
 
@@ -63,4 +63,4 @@ const initSort = (data) => {
   });
 };
 
-export {initSort};
+export {enableSorting};
