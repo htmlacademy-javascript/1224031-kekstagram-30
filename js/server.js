@@ -1,7 +1,5 @@
 import {showBigPicture} from './show-big-picture';
-import {closeModal} from './form-validate';
-import {resetScale} from './photo-scale';
-import {resetEffects} from './slider-effects';
+import {onModalClickClose} from './form-validate';
 import {enableSorting} from './sort';
 import {getDownloadErrorMessage, getSuccessMessage, getUploadErrorMessage} from './server-error-messages';
 
@@ -39,9 +37,7 @@ const sendServerData = (formData) => {
         getUploadErrorMessage();
       } else {
         getSuccessMessage();
-        closeModal();
-        resetScale();
-        resetEffects();
+        onModalClickClose();
       }
     })
     .catch(() => {

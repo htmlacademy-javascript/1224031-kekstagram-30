@@ -16,24 +16,31 @@ const getDownloadErrorMessage = () => {
   document.body.append(downloadErrorTemplateContent);
   setTimeout(removeDownloadErrorMessage, ERROR_TIMEOUT);
 };
-const removeSuccessMessage = () => {
+const onSuccessMessageKeydownRemove = (evt) => {
+  if(isEscapeKey(evt)) {
+    // eslint-disable-next-line no-use-before-define
+    onSuccessMessageClickRemove();
+  }
+};
+const onSuccessMessageFieldClickRemove = (evt) => {
+  if (evt.target !== successWrapper && evt.target !== successTitle) {
+    // eslint-disable-next-line no-use-before-define
+    onSuccessMessageClickRemove();
+  }
+};
+const onSuccessMessageClickRemove = () => {
   successTemplateContent.remove();
-  successCloseButton.removeEventListener('click', removeSuccessMessage);
+  successCloseButton.removeEventListener('click', onSuccessMessageClickRemove);
+  document.removeEventListener('keydown', onSuccessMessageKeydownRemove);
+  successTemplateContent.removeEventListener('click', onSuccessMessageFieldClickRemove);
 };
 const getSuccessMessage = () => {
   successTemplateContent.cloneNode(true);
   document.body.append(successTemplateContent);
-  successCloseButton.addEventListener('click', removeSuccessMessage);
-  document.addEventListener('keydown', (evt) => {
-    if(isEscapeKey(evt)) {
-      removeSuccessMessage();
-    }
-  });
-  successTemplateContent.addEventListener('click', (evt) => {
-    if (evt.target !== successWrapper && evt.target !== successTitle) {
-      removeSuccessMessage();
-    }
-  });
+
+  successCloseButton.addEventListener('click', onSuccessMessageClickRemove);
+  document.addEventListener('keydown', onSuccessMessageKeydownRemove);
+  successTemplateContent.addEventListener('click', onSuccessMessageFieldClickRemove);
 };
 const removeUploadErrorMessage = () => {
   uploadErrorTemplateContent.remove();
