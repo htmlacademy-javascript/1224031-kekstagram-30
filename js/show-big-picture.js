@@ -20,24 +20,26 @@ const commentsFragment = document.createDocumentFragment();
 
 const bigPictureCommentsLoader = bigPicturePopup.querySelector('.comments-loader');
 
-const closeBigPicture = () => {
+const onBigPictureClickClose = () => {
   bigPicturePopup.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
-  bigPictureCloseButton.removeEventListener('click', closeBigPicture);
-};
 
-const openBigPicture = () => {
+  bigPictureCloseButton.removeEventListener('click', onBigPictureClickClose);
+  // eslint-disable-next-line no-use-before-define
+  document.removeEventListener('keydown', onBigPictureKeydownClose);
+};
+const onBigPictureKeydownClose = (evt) => {
+  if(isEscapeKey(evt)) {
+    onBigPictureClickClose();
+  }
+};
+const onBigPictureClickOpen = () => {
   bigPicturePopup.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
-  bigPictureCloseButton.addEventListener('click', closeBigPicture);
+
+  bigPictureCloseButton.addEventListener('click', onBigPictureClickClose);
+  document.addEventListener('keydown', onBigPictureKeydownClose);
 };
-
-document.addEventListener('keydown', (evt) => {
-  if(isEscapeKey(evt)) {
-    closeBigPicture();
-  }
-});
-
 const getBigPictureComments = (comments, commentsCount) => {
   bigPictureComments.innerHTML = '';
   const slicedComments = comments.slice(0, commentsCount);
@@ -74,14 +76,14 @@ const showBigPicture = (data) => {
     let count = COMMENTS_SHOWN;
     data.forEach((value) => {
       if (value.id === Number(evt.target.dataset.id)) {
-        openBigPicture();
+        onBigPictureClickOpen();
         getBigPicture(value);
         getBigPictureComments(value.comments, count);
-        const getMoreComments = () => {
+        const onCommentsLoaderClickGetMoreComments = () => {
           count += 5;
           getBigPictureComments(value.comments, count);
         };
-        bigPictureCommentsLoader.addEventListener('click', getMoreComments);
+        bigPictureCommentsLoader.addEventListener('click', onCommentsLoaderClickGetMoreComments);
       }
     });
   });

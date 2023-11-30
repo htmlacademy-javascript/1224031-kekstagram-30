@@ -1,6 +1,6 @@
 import {isEscapeKey} from './utils';
 import {sendServerData} from './server';
-import {resetScale} from './photo-scale';
+import {onScaleSmallerClick, onScaleBiggerClick, resetScale} from './photo-scale';
 import {resetEffects} from './slider-effects';
 
 const MAX_COMMENT_LENGTH = 140;
@@ -13,6 +13,10 @@ const imgUploadInterface = document.querySelector('.img-upload__overlay');
 const uploadCloseButton = document.querySelector('.img-upload__cancel');
 const photoCommentInputField = imgUploadForm.querySelector('.text__description');
 const photoHashtagsInputField = imgUploadForm.querySelector('.text__hashtags');
+const effectValueInput = document.querySelector('.effect-level__value');
+
+const scaleSmaller = document.querySelector('.scale__control--smaller');
+const scaleBigger = document.querySelector('.scale__control--bigger');
 
 const submitButton = document.querySelector('.img-upload__submit');
 
@@ -21,33 +25,42 @@ const pristine = new Pristine(imgUploadForm, {
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
 });
+const onModalKeydownClose = (evt) => {
+  if(isEscapeKey(evt) && !document.querySelector('.error')) {
+    // eslint-disable-next-line no-use-before-define
+    onModalClickClose();
+  }
+};
 
-const closeModal = () => {
+const onModalClickClose = () => {
   imgUploadInterface.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
   imgUploadInput.value = '';
   imgUploadForm.reset();
   pristine.reset();
-  uploadCloseButton.removeEventListener('click', closeModal);
+
+  document.removeEventListener('keydown', onModalKeydownClose);
+  uploadCloseButton.removeEventListener('click', onModalClickClose);
+  scaleSmaller.removeEventListener('click', onScaleSmallerClick);
+  scaleBigger.removeEventListener('click', onScaleBiggerClick);
+
   resetScale();
   resetEffects();
   submitButton.disabled = true;
 };
-
-const openModal = () => {
+const onModalClickOpen = () => {
   imgUploadInterface.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
-  uploadCloseButton.addEventListener('click', closeModal);
+
+  uploadCloseButton.addEventListener('click', onModalClickClose);
+  document.addEventListener('keydown', onModalKeydownClose);
+  scaleSmaller.addEventListener('click', onScaleSmallerClick);
+  scaleBigger.addEventListener('click', onScaleBiggerClick);
+
+  effectValueInput.removeAttribute('value');
   submitButton.disabled = false;
 };
-
-imgUploadInput.addEventListener('change', openModal);
-document.addEventListener('keydown', (evt) => {
-  if(isEscapeKey(evt) && !document.querySelector('.error')) {
-    closeModal();
-  }
-});
-
+imgUploadInput.addEventListener('change', onModalClickOpen);
 photoCommentInputField.addEventListener('keydown', (evt) => {
   evt.stopPropagation();
 });
@@ -96,4 +109,4 @@ imgUploadForm.addEventListener('submit', (evt) => {
   }
 });
 
-export {closeModal};
+export {onModalClickClose};
