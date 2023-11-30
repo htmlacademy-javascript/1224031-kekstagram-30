@@ -13,6 +13,7 @@ const imgUploadInterface = document.querySelector('.img-upload__overlay');
 const uploadCloseButton = document.querySelector('.img-upload__cancel');
 const photoCommentInputField = imgUploadForm.querySelector('.text__description');
 const photoHashtagsInputField = imgUploadForm.querySelector('.text__hashtags');
+const effectValueInput = document.querySelector('.effect-level__value');
 
 const submitButton = document.querySelector('.img-upload__submit');
 
@@ -38,6 +39,7 @@ const openModal = () => {
   imgUploadInterface.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   uploadCloseButton.addEventListener('click', closeModal);
+  effectValueInput.removeAttribute('value');
   submitButton.disabled = false;
 };
 
