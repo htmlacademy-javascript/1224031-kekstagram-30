@@ -62,6 +62,7 @@ effectsContainer.addEventListener('change', (evt) => {
     sliderContainer.classList.add('hidden');
     photo.style.filter = '';
     effectValue.removeAttribute('value');
+    effectValue.value = '';
   }
 });
 

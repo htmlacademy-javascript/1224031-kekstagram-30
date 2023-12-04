@@ -58,6 +58,7 @@ const onModalClickOpen = () => {
   scaleBigger.addEventListener('click', onScaleBiggerClick);
 
   effectValueInput.removeAttribute('value');
+  effectValueInput.value = '';
   submitButton.disabled = false;
 };
 imgUploadInput.addEventListener('change', onModalClickOpen);
